@@ -1,35 +1,37 @@
-import { useEffect, useState } from "react" ;
-import {useDispatch} from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import authService from "./appwrite/auth";
-import {Outlet} from "react-router-dom";
-import {login, logout} from "./store/authSlice";
-import {Header, Footer} from "./components"; 
+import { Outlet } from "react-router-dom";
+import { login, logout } from "./store/authSlice";
+import { Header, Footer, Loader } from "./components";
 
-function App() { 
+function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
     authService.getCurrentser()
       .then((userData) => {
-        if(userData) {
+        if (userData) {
           dispatch(login({ userData }));
         } else {
-          dispatch(logout())
+          dispatch(logout());
         }
       })
       .finally(() => {
-        setLoading(false)
-      })
-  }, [])
-  
+        setLoading(false);
+      });
+  }, []);
+
   return !loading ? (
-    <main>
+    <>
       <Header />
-      {/* <Outlet /> */}
-      <Footer />
-    </main>
-  ) : (null)
+      <main>
+        {/* TODO: <Outlet /> */}
+      </main>
+      <Footer /> 
+    </>
+  ) :  (<Loader />);
 }
 
-export default App
+export default App;
