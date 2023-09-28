@@ -6,22 +6,22 @@ import { login, logout } from "./store/authSlice";
 import { Header, Footer, Loader } from "./components";
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    authService.getCurrentser()
-      .then((userData) => {
-        if (userData) {
-          dispatch(login({ userData }));
-        } else {
-          dispatch(logout());
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   authService.getCurrentser()
+  //     .then((userData) => {
+  //       if (userData) {
+  //         dispatch(login({ userData }));
+  //       } else {
+  //         dispatch(logout());
+  //       }
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // }, []);
 
   return !loading ? (
     <>
