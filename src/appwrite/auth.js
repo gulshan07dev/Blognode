@@ -34,13 +34,13 @@ export class AuthService {
         }
     }
 
-    async getCurrentser() {
+    async getCurrentUser() {
         try {
             return await this.account.get()
         } catch (error) {
             throw error
+            return null
         }
-        return null
     }
 
     async logout() {
