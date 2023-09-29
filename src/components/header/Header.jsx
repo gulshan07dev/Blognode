@@ -36,7 +36,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="py-3.5 shadow-sm bg-white sticky top-0 z-50">
+    <header className="py-3.5 shadow-sm border-b-[1px] border-b-gray-100 bg-white sticky top-0 z-50">
       <Container>
         <nav className="flex justify-between items-center">
           <Logo className="max-md:text-base text-3xl" />
