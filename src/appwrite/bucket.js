@@ -47,5 +47,5 @@ export class Bucket {
     }
 }
 
-const bucket = new Bucket();
-export default bucket
+const bucketService = new Bucket();
+export default bucketService
