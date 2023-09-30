@@ -87,7 +87,7 @@ export default function Signup() {
             })}
           />
           <Button type="submit" disabled={loading} className="w-full py-3">
-            {loading ? "Creating account" : "Create Account"}
+            {loading ? "Creating account..." : "Create Account"}
           </Button>
         </div>
       </form>
