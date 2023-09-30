@@ -10,7 +10,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    authService.getCurrentUser()
+    authService
+      .getCurrentUser()
       .then((userData) => {
         if (userData) {
           dispatch(login({ userData }));
@@ -27,11 +28,13 @@ function App() {
     <>
       <Header />
       <main className="min-h-screen">
-        {/* TODO: <Outlet /> */}
+        <Outlet />
       </main>
-      <Footer /> 
+      <Footer />
     </>
-  ) :  (<Loader />);
+  ) : (
+    <Loader />
+  );
 }
 
 export default App;
