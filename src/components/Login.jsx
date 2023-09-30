@@ -13,6 +13,7 @@ export default function Login() {
   const [error, setError] = useState("");
 
   const login = async (data) => {
+    console.log(data);
     setError("");
     try {
       const session = await authService.login(data);
@@ -25,8 +26,7 @@ export default function Login() {
       setError(error.message);
     }
   };
-  return (
-    <section className="flex items-center justify-center md:py-12 pt-20 pb-10 max-md:px-4">
+  return ( 
       <div
         className={`w-full max-w-lg bg-[#e4e4ff77] backdrop-blur-sm rounded-xl md:p-10 max-md:py-10 px-4 border shadow-sm flex flex-col gap-3`}
       >
@@ -43,11 +43,8 @@ export default function Login() {
           </Link>
         </p>
         {error && <p className="text-red-600 mt-2 text-center">{error}</p>}
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit(login);
-          }}
+        <form 
+        onSubmit={handleSubmit(login)}
           className="mt-0"
         >
           <div className="space-y-7">
@@ -67,7 +64,7 @@ export default function Login() {
             <Input
               label="Password: "
               placeholder="Enter your password"
-              type="email"
+              type="password"
               {...register("password", {
                 required: true,
               })}
@@ -76,6 +73,5 @@ export default function Login() {
           </div>
         </form>
       </div>
-    </section>
   );
 }

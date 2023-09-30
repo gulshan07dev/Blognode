@@ -26,8 +26,7 @@ export default function Signup() {
       setError(error.message);
     }
   };
-  return (
-    <section className="flex items-center justify-center md:py-12 pt-20 pb-10 max-md:px-4">
+  return ( 
       <div
         className={`w-full max-w-lg bg-[#e4e4ff77] backdrop-blur-sm rounded-xl md:p-10 max-md:py-10 px-4 border shadow-sm flex flex-col gap-3`}
       >
@@ -86,7 +85,6 @@ export default function Signup() {
             </Button>
           </div>
         </form>
-      </div>
-    </section>
+      </div> 
   );
 }
