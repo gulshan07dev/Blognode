@@ -5,7 +5,14 @@ function Select({ options, label, className = "", ...props }, ref) {
   const id = useId();
   return (
     <div className="w-full">
-      {label && <label htmlFor="id"></label>}
+      {label && (
+        <label
+          htmlFor="id"
+          className="pl-1 text-lg text-gray-950 font-[500] font-inter"
+        >
+          {label}
+        </label>
+      )}
       <select
         id={id}
         {...props}

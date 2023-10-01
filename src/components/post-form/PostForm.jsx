@@ -1,56 +1,68 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, Select, RTE } from "../../components";
 import bucketService from "../../appwrite/bucket";
 import postService from "../../appwrite/posts";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 export default function PostForm({ post }) {
   const navigate = useNavigate();
-  const { register, handleSubmit, watch, setValue, getValues, control } = useForm({
-    defaultValues: {
-      title: post?.title || "",
-      slug: post?.slug || "",
-      content: post?.content || "",
-      status: post?.status || "",
-    },
-  });
+  const [loading, setLoading] = useState(false);
+  const [previewImg, setPreviewImg] = useState(null);
+  const { register, handleSubmit, watch, setValue, getValues, control } =
+    useForm({
+      defaultValues: {
+        title: post?.title || "",
+        slug: post?.$id || '',
+        content: post?.content || "",
+        status: post?.status || "",
+      },
+    });
   const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
-    if (post) {
-      const file = data.image[0]
-        ? await bucketService.uploadFile(data.image[0])
-        : null;
+    setLoading(true);
 
-      if (file) {
-        bucketService.deleteFile(post.featuredImage);
-      }
-      const dbPost = await postService.updatePost(post.$id, {
-        ...data,
-        featuredImage: file ? file.$id : undefined,
-      });
-      if (dbPost) {
-        navigate(`/post/${dbPost.$id}`);
-      }
-    } else {
-      const file = data.image[0]
-        ? await bucketService.uploadFile(data.image[0])
-        : null;
+    try {
+      if (post) {
+        const file = data.image[0]
+          ? await bucketService.uploadFile(data.image[0])
+          : null;
 
-      if (file) {
-        const fileId = file.$id;
-        data.featuredImage = fileId;
-        const dbPost = await postService.createPost({
+        if (file) {
+          bucketService.deleteFile(post.featuredImage);
+        }
+        const dbPost = await postService.updatePost(post.$id, {
           ...data,
-          userId: userData.$id,
+          featuredImage: file ? file.$id : undefined,
         });
         if (dbPost) {
+          toast.success("Post updated!");
           navigate(`/post/${dbPost.$id}`);
         }
+      } else {
+        const file = data.image[0]
+          ? await bucketService.uploadFile(data.image[0])
+          : null;
+        if (file) {
+          const dbPost = await postService.createPost({
+            ...data,
+            featuredImage: file?.$id,
+            userId: userData.$id,
+          });
+          if (dbPost) {
+            toast.success("Post created!");
+            navigate(`/post/${dbPost.$id}`);
+          }
+        }
       }
+    } catch (error) {
+      toast.error(error.message);
     }
+
+    setLoading(false);
   };
 
   const slugTransform = useCallback((value) => {
@@ -58,7 +70,7 @@ export default function PostForm({ post }) {
       return value
         .trim()
         .toLowerCase()
-        .replace(/^[a-zA-Z\d\d]+/g, "-")
+        .replace(/[^a-zA-Z\d\s]+/g, "-")
         .replace(/\s/g, "-");
 
     return "";
@@ -69,6 +81,9 @@ export default function PostForm({ post }) {
       if (name === "title") {
         setValue("slug", slugTransform(value.title), { shouldValidate: true });
       }
+      if (name === "image") {
+        setPreviewImg(URL.createObjectURL(value.image[0]));
+      }
     });
 
     return () => {
@@ -77,8 +92,11 @@ export default function PostForm({ post }) {
   }, [watch, slugTransform, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-      <div className="w-2/3 px-2">
+    <form
+      onSubmit={handleSubmit(submit)}
+      className="flex md:justify-center gap-7 max-md:flex-col"
+    >
+      <div className="md:w-[48%] w-full px-2">
         <Input
           label="Title :"
           placeholder="Title"
@@ -89,12 +107,7 @@ export default function PostForm({ post }) {
           label="Slug :"
           placeholder="Slug"
           className="mb-4"
-          {...register("slug", { required: true })}
-          onInput={(e) => {
-            setValue("slug", slugTransform(e.currentTarget.value), {
-              shouldValidate: true,
-            });
-          }}
+          {...register("slug", { required: true })} 
         />
         <RTE
           label="Content :"
@@ -103,7 +116,7 @@ export default function PostForm({ post }) {
           defaultValue={getValues("content")}
         />
       </div>
-      <div className="w-1/3 px-2">
+      <div className="md:w-[35%] w-full h-fit flex flex-col gap-3 bg-white shadow-md rounded-md sticky top-[100px] md:py-3 py-5 md:px-5 px-3">
         <Input
           label="Featured Image :"
           type="file"
@@ -111,12 +124,26 @@ export default function PostForm({ post }) {
           accept="image/png, image/jpg, image/jpeg, image/gif"
           {...register("image", { required: !post })}
         />
-        {post && (
-          <div className="w-full mb-4">
+        {!post && previewImg && (
+          <div className="h-[200px] w-auto rounded-lg overflow-hidden flex justify-center">
             <img
-              src={appwriteService.getFilePreview(post.featuredImage)}
+              src={previewImg}
+              alt="preview-image"
+              className="h-full w-auto"
+            />
+          </div>
+        )}
+
+        {post && (post || previewImg) && (
+          <div className="h-[200px] w-auto rounded-lg overflow-hidden flex justify-center">
+            <img
+              src={
+                previewImg
+                  ? previewImg
+                  : bucketService.getFilePreview(post.featuredImage)
+              }
               alt={post.title}
-              className="rounded-lg"
+              className="h-full w-auto"
             />
           </div>
         )}
@@ -129,9 +156,16 @@ export default function PostForm({ post }) {
         <Button
           type="submit"
           bgColor={post ? "bg-green-500" : undefined}
-          className="w-full"
+          disabled={loading}
+          className="w-full py-3"
         >
-          {post ? "Update" : "Submit"}
+          {post
+            ? loading
+              ? "Updating..."
+              : "Update"
+            : loading
+            ? "Uploading..."
+            : "Submit"}
         </Button>
       </div>
     </form>

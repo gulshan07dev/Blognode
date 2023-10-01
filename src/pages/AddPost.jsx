@@ -2,7 +2,7 @@ import {PostForm} from "../components";
 
 export default function AddPost() {
   return (
-    <section className="flex items-center justify-center md:py-12 pt-20 pb-10 max-md:px-4">
+    <section className="w-full min-h-screen md:py-12 px-10 pt-7 pb-10 max-md:px-4 bg-slate-50">
         <PostForm />
     </section>
   );

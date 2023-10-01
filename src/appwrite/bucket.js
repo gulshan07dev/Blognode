@@ -14,12 +14,11 @@ export class Bucket {
  
     async uploadFile(file) {
         try {
-            await this.bucket.createFile(
+            return await this.bucket.createFile(
                 conf.appwriteBucketId,
                 ID.unique(),
                 file
-            )
-            return true
+            ) 
         } catch (error) {
             throw error;
             return false;

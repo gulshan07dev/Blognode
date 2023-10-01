@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Loader, PostForm } from "../components";
 import postService from "../appwrite/posts";
-import bucketService from "../appwrite/bucket";
 
 export default function EditPost() {
   const navigate = useNavigate();
@@ -22,7 +21,7 @@ export default function EditPost() {
   }, [slug, navigate]);
 
   return post ? (
-    <section className="flex items-center justify-center md:py-12 pt-20 pb-10 max-md:px-4">
+    <section className="w-full min-h-screen md:py-12 px-10 pt-7 pb-10 max-md:px-4 bg-slate-50">
       <PostForm post={post} />
     </section>
   ) : (

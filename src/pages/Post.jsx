@@ -4,6 +4,7 @@ import postService from "../appwrite/posts";
 import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
+import bucketService from "../appwrite/bucket";
 
 export default function Post() {
   const [post, setPost] = useState(null);
@@ -37,7 +38,7 @@ export default function Post() {
       <Container>
         <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
           <img
-            src={postService.getFilePreview(post.featuredImage)}
+            src={bucketService.getFilePreview(post.featuredImage)}
             alt={post.title}
             className="rounded-xl"
           />
