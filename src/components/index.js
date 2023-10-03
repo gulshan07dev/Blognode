@@ -13,6 +13,7 @@ import Login from "./Login";
 import Signup from "./Signup"
 import RTE from "./RTE";
 import PostForm from "./post-form/PostForm";
+import Modal from "./Modal/Modal";
 
 export {
     Header,
@@ -29,5 +30,6 @@ export {
     Login,
     Signup,
     RTE,
-    PostForm
+    PostForm,
+    Modal
 }
