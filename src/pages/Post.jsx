@@ -56,11 +56,11 @@ export default function Post() {
           </div>
         )}
         <div className="w-full mb-6">
-          <h1 className="text-5xl font-bold text-gray-800 text-center font-nunito-sans">
+          <h1 className="md:text-5xl text-3xl font-bold text-gray-800 text-center font-nunito-sans">
             {post.title}
           </h1>
         </div>
-        <div className="browser-css w-full whitespace-pre-wrap px-3">{parse(post.content)}</div>
+        <div className="browser-css text-left post-content">{parse(post.content)}</div>
 
         {/* Modal for edit and delete options */}
         {showOptionsModal && isAuthor && (

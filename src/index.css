@@ -17,7 +17,49 @@ body {
     font-family: "poppins", sans-serif;
 }
 
-/* .post-content p {
-    font-size: 20px;
-    font-family: "Inter", sans-serif;
-} */
+/* post - content */
+.post-content {
+    padding-inline: 7px;
+}
+.post-content h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    font-family: 'poppins', sans-serif;
+}
+.post-content h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'poppins', sans-serif;
+}
+.post-content h3 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    font-family: 'poppins', sans-serif;
+}
+.post-content h4 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    font-family: 'poppins', sans-serif;
+}
+.post-content h5 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: 'poppins', sans-serif;
+}
+.post-content h6 {
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: 'poppins', sans-serif;
+}
+
+.post-content h1, .post-content h2, .post-content h3 {
+    margin-top: 13px;
+    color: #000000d7;
+}
+
+.post-content p {
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #31383b;
+}

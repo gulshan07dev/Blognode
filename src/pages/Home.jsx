@@ -18,7 +18,7 @@ export default function Home() {
         }
       })
       .catch((error) => {
-        setError(error.message);
+        setError(error);
       })
       .finally(() => {
         setIsLoading(false);
@@ -32,12 +32,14 @@ export default function Home() {
       {error && (
         <div className="w-full py-8 mt-4 text-center">
           <Container>
-            <Message text={error} />
-            <Link to="/login" className="p-2 w-full">
-              <h1 className="text-2xl font-bold hover:text-gray-500">
-                Please Login to view post !
-              </h1>
-            </Link>
+            <Message text={error.message} />
+            {error.type === "user_unauthorized" && (
+              <Link to="/login" className="p-2 w-full">
+                <h1 className="text-2xl font-bold hover:text-gray-500">
+                  Please Login to view post !
+                </h1>
+              </Link>
+            )}
           </Container>
         </div>
       )}
