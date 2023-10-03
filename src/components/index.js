@@ -14,6 +14,7 @@ import Signup from "./Signup"
 import RTE from "./RTE";
 import PostForm from "./post-form/PostForm";
 import Modal from "./Modal/Modal";
+import Message from "./Message";
 
 export {
     Header,
@@ -31,5 +32,6 @@ export {
     Signup,
     RTE,
     PostForm,
-    Modal
+    Modal,
+    Message
 }

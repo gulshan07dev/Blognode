@@ -70,6 +70,15 @@ export default function PostForm({ post }) {
   };
 
   const slugTransform = useCallback((value) => {
+    if (value.length > 35)
+      return (
+        value
+          .trim()
+          .toLowerCase()
+          .replace(/[^a-zA-Z\d\s]+/g, "-")
+          .replace(/\s/g, "-")
+          .slice(0, 30) + "..."
+      );
     if (value && typeof value === "string")
       return value
         .trim()

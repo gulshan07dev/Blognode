@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import postService from "../appwrite/posts";
-import { Button, Container,  Modal } from "../components";
+import { Button, Container, Modal } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 import bucketService from "../appwrite/bucket";
@@ -56,11 +56,11 @@ export default function Post() {
           </div>
         )}
         <div className="w-full mb-6">
-          <h1 className="text-3xl font-bold text-gray-800 text-center font-lato">{post.title}</h1>
+          <h1 className="text-5xl font-bold text-gray-800 text-center font-nunito-sans">
+            {post.title}
+          </h1>
         </div>
-        <div className="px-3 text-lg">
-          {parse(post.content)}
-        </div>
+        <div className="browser-css w-full whitespace-pre-wrap px-3">{parse(post.content)}</div>
 
         {/* Modal for edit and delete options */}
         {showOptionsModal && isAuthor && (
