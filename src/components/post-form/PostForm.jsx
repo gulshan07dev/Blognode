@@ -15,14 +15,18 @@ export default function PostForm({ post }) {
     useForm({
       defaultValues: {
         title: post?.title || "",
-        slug: post?.$id || '',
+        slug: post?.$id || "",
         content: post?.content || "",
-        status: post?.status || "",
+        status: post?.status || "active",
       },
     });
   const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
+    if (data.content.length <= 0) {
+      toast.error("content is required !");
+      return;
+    }
     setLoading(true);
 
     try {
@@ -107,7 +111,12 @@ export default function PostForm({ post }) {
           label="Slug :"
           placeholder="Slug"
           className="mb-4"
-          {...register("slug", { required: true })} 
+          {...register("slug", { required: true })}
+          onInput={(e) => {
+            setValue("slug", slugTransform(e.target.value), {
+              shouldValidate: true,
+            });
+          }}
         />
         <RTE
           label="Content :"
@@ -125,7 +134,7 @@ export default function PostForm({ post }) {
           {...register("image", { required: !post })}
         />
         {!post && previewImg && (
-          <div className="h-[200px] w-auto rounded-lg overflow-hidden flex justify-center">
+          <div className="h-[170px] w-auto rounded-lg overflow-hidden flex justify-center">
             <img
               src={previewImg}
               alt="preview-image"
@@ -135,7 +144,7 @@ export default function PostForm({ post }) {
         )}
 
         {post && (post || previewImg) && (
-          <div className="h-[200px] w-auto rounded-lg overflow-hidden flex justify-center">
+          <div className="h-[170px] w-auto rounded-lg overflow-hidden flex justify-center">
             <img
               src={
                 previewImg
