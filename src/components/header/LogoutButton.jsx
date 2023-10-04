@@ -27,7 +27,7 @@ export default function LogoutButton() {
   };
   return (
     <button
-      className="flex items-center hover:opacity-70 disabled:opacity-30 gap-1 text-red-500 font-[500] text-base"
+      className="flex items-center hover:opacity-70 disabled:opacity-30 gap-1 text-red-500 dark:text-[#ec0f0f] dark:font-semibold font-[500] text-base"
       onClick={logoutHandler}
       disabled={loading}
     >

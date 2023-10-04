@@ -39,20 +39,22 @@ export default function Login() {
   }, [setError, error]);
   return (
     <div
-      className={`w-full max-w-lg bg-[#e4e4ff77] backdrop-blur-sm rounded-xl md:p-10 max-md:py-10 px-4 border shadow-sm flex flex-col gap-3`}
+      className={`w-full max-w-lg bg-[#e4e4ff77] dark:bg-[#18181b] dark:border-[#2b2b2e] backdrop-blur-sm rounded-xl md:p-10 max-md:py-10 px-4 border-[1px] shadow-sm flex flex-col gap-7`}
     >
-      <h2 className="text-center text-2xl font-lato font-bold leading-tight">
-        Sign in to your account
-      </h2>
-      <p className="text-center text-base font-open-sans text-black/60">
-        Don&apos;t have any account?&nbsp;
-        <Link
-          to="/signup"
-          className="font-medium text-primary transition-all duration-200 hover:underline"
-        >
-          Sign Up
-        </Link>
-      </p>
+      <div>
+        <h2 className="text-center text-2xl text-gray-900 dark:text-white font-nunito-sans font-bold leading-tight">
+          Sign in to your account
+        </h2>
+        <p className="text-center text-base mt-2 font-open-sans text-black/60 dark:text-slate-300">
+          Don&apos;t have any account?&nbsp;
+          <Link
+            to="/signup"
+            className="font-medium text-primary transition-all duration-200 hover:underline"
+          >
+            Sign Up
+          </Link>
+        </p>
+      </div>
       <form onSubmit={handleSubmit(login)} className="mt-0">
         <div className="space-y-7">
           <Input

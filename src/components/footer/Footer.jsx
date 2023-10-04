@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import {Logo} from "../index";
+import { Logo } from "../index";
 
 export default function Footer() {
   return (
-    <footer className="overflow-hidden py-10 bg-white">
+    <footer className="w-screen overflow-x-hidden py-10 bg-white dark:bg-[#131315] dark:border-t-[1px] dark:border-[#2b2b2e]">
       <div className=" mx-auto max-w-7xl px-4">
         <div className="-m-6 flex flex-wrap">
           <div className="w-full p-6 md:w-1/2 lg:w-5/12">
@@ -20,13 +20,13 @@ export default function Footer() {
           </div>
           <div className="w-full p-6 md:w-1/2 lg:w-2/12">
             <div className="h-full">
-              <h3 className="tracking-px mb-9  text-xs font-semibold uppercase text-gray-500">
+              <h3 className="tracking-px mb-9 text-base font-nunito-sans font-semibold uppercase text-gray-600 dark:text-slate-400">
                 Company
               </h3>
               <ul>
                 <li className="mb-4">
                   <Link
-                    className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                    className=" text-base font-medium font-inter text-gray-900 dark:text-slate-300 hover:text-gray-700 dark:hover:opacity-75"
                     to="/"
                   >
                     Features
@@ -34,7 +34,7 @@ export default function Footer() {
                 </li>
                 <li className="mb-4">
                   <Link
-                    className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                    className=" text-base font-medium font-inter text-gray-900 dark:text-slate-300 hover:text-gray-700 dark:hover:opacity-75"
                     to="/"
                   >
                     Pricing
@@ -42,7 +42,7 @@ export default function Footer() {
                 </li>
                 <li className="mb-4">
                   <Link
-                    className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                    className=" text-base font-medium font-inter text-gray-900 dark:text-slate-300 hover:text-gray-700 dark:hover:opacity-75"
                     to="/"
                   >
                     Affiliate Program
@@ -50,7 +50,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                    className=" text-base font-medium font-inter text-gray-900 dark:text-slate-300 hover:text-gray-700 dark:hover:opacity-75"
                     to="/"
                   >
                     Press Kit
@@ -61,13 +61,13 @@ export default function Footer() {
           </div>
           <div className="w-full p-6 md:w-1/2 lg:w-2/12">
             <div className="h-full">
-              <h3 className="tracking-px mb-9  text-xs font-semibold uppercase text-gray-500">
+              <h3 className="tracking-px mb-9 text-base font-nunito-sans font-semibold uppercase text-gray-600 dark:text-slate-400">
                 Support
               </h3>
               <ul>
                 <li className="mb-4">
                   <Link
-                    className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                    className=" text-base font-medium font-inter text-gray-900 dark:text-slate-300 hover:text-gray-700 dark:hover:opacity-75"
                     to="/"
                   >
                     Account
@@ -75,7 +75,7 @@ export default function Footer() {
                 </li>
                 <li className="mb-4">
                   <Link
-                    className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                    className=" text-base font-medium font-inter text-gray-900 dark:text-slate-300 hover:text-gray-700 dark:hover:opacity-75"
                     to="/"
                   >
                     Help
@@ -83,7 +83,7 @@ export default function Footer() {
                 </li>
                 <li className="mb-4">
                   <Link
-                    className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                    className=" text-base font-medium font-inter text-gray-900 dark:text-slate-300 hover:text-gray-700 dark:hover:opacity-75"
                     to="/"
                   >
                     Contact Us
@@ -91,7 +91,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                    className=" text-base font-medium font-inter text-gray-900 dark:text-slate-300 hover:text-gray-700 dark:hover:opacity-75"
                     to="/"
                   >
                     Customer Support
@@ -102,13 +102,13 @@ export default function Footer() {
           </div>
           <div className="w-full p-6 md:w-1/2 lg:w-3/12">
             <div className="h-full">
-              <h3 className="tracking-px mb-9  text-xs font-semibold uppercase text-gray-500">
+              <h3 className="tracking-px mb-9 text-base font-nunito-sans font-semibold uppercase text-gray-600 dark:text-slate-400">
                 Legals
               </h3>
               <ul>
                 <li className="mb-4">
                   <Link
-                    className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                    className=" text-base font-medium font-inter text-gray-900 dark:text-slate-300 hover:text-gray-700 dark:hover:opacity-75"
                     to="/"
                   >
                     Terms &amp; Conditions
@@ -116,7 +116,7 @@ export default function Footer() {
                 </li>
                 <li className="mb-4">
                   <Link
-                    className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                    className=" text-base font-medium font-inter text-gray-900 dark:text-slate-300 hover:text-gray-700 dark:hover:opacity-75"
                     to="/"
                   >
                     Privacy Policy
@@ -124,7 +124,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                    className=" text-base font-medium font-inter text-gray-900 dark:text-slate-300 hover:text-gray-700 dark:hover:opacity-75"
                     to="/"
                   >
                     Licensing

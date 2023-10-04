@@ -3,9 +3,9 @@ import { Controller } from "react-hook-form";
 
 export default function RTE({ name, control, label, defaultValue = "" }) {
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col gap-1">
       {label && (
-        <label className="pl-1 text-lg text-gray-950 font-[500] font-inter">
+        <label className="pl-1 text-lg text-gray-950 dark:text-white font-[500] font-inter">
           {label}
         </label>
       )}

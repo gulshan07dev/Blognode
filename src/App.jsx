@@ -28,7 +28,7 @@ function App() {
   return !loading ? (
     <>
       <Header />
-      <main className="min-h-screen">
+      <main className="min-h-screen w-full pb-7 bg-white dark:bg-[#131315]">
         <Outlet />
       </main>
       <Footer />

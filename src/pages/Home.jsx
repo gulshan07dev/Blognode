@@ -28,20 +28,18 @@ export default function Home() {
   return isLoading ? (
     <Loader />
   ) : (
-    <section className="flex items-center justify-center md:py-12 pt-10 pb-10 max-md:px-4">
-      {error && (
-        <div className="w-full py-8 mt-4 text-center">
-          <Container>
+    <section className="flex justify-center md:py-12 pt-10 pb-10 max-md:px-4">
+      {error && ( 
+          <div className="w-full px-3 pt-20 flex flex-col gap-5 justify-center items-center">
             <Message text={error.message} />
             {error.type === "user_unauthorized" && (
-              <Link to="/login" className="p-2 w-full">
-                <h1 className="text-2xl font-bold hover:text-gray-500">
+              <Link to="/login" className="p-2">
+                <h1 className="text-2xl font-bold text-gray-800 hover:text-gray-500 dark:text-slate-50">
                   Please Login to view post !
                 </h1>
               </Link>
             )}
-          </Container>
-        </div>
+          </div> 
       )}
       {posts.length === 0 && !error ? (
         <Message text="No Post Available on Server." />

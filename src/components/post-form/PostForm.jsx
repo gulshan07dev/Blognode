@@ -134,7 +134,7 @@ export default function PostForm({ post }) {
           defaultValue={getValues("content")}
         />
       </div>
-      <div className="md:w-[35%] w-full h-fit flex flex-col gap-3 bg-white shadow-md rounded-md sticky top-[100px] md:py-3 py-5 md:px-5 px-3">
+      <div className="md:w-[35%] w-full h-fit flex flex-col gap-3 bg-white dark:bg-[#18181b] dark:border-[1px] dark:border-[#2b2b2e] shadow-md rounded-md sticky top-[100px] md:py-4 md:pb-7 py-5 md:px-5 px-3">
         <Input
           label="Featured Image :"
           type="file"

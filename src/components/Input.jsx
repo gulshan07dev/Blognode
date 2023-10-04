@@ -18,16 +18,22 @@ const Input = React.forwardRef(function Input(
     <div className="w-full flex flex-col gap-1">
       {label && (
         <label
-          className="pl-1 text-lg text-gray-950 font-[500] font-inter"
+          className="pl-1 text-lg text-gray-950 dark:text-white font-[500] font-inter"
           htmlFor={id}
         >
           {label}
         </label>
       )}
-      <div className={`${type == "password" ? "flex bg-white overflow-hidden": ""}`}>
+      <div
+        className={`${
+          type == "password"
+            ? "flex bg-white dark:bg-[#131315] overflow-hidden"
+            : ""
+        }`}
+      >
         <input
           type={inputType}
-          className={`px-3 py-2.5 rounded-sm border-gray-300 bg-white backdrop-blur-md text-gray-700 font-nunito-sans text-base font-[500] outline-none focus:bg-gray-50 focus:border-blue-500 duration-200 border w-full ${
+          className={`px-3 py-2.5 rounded-sm border-[1px] border-gray-300 dark:border-[#2b2b2e] bg-white dark:bg-[#18181b]  backdrop-blur-md text-gray-700 dark:text-slate-300 font-nunito-sans text-base font-[500] outline-none focus:bg-gray-50 focus:border-blue-500 duration-200 w-full ${
             type == "password" ? "w-[88%]" : "w-full"
           } ${className}`}
           ref={ref}
@@ -38,8 +44,8 @@ const Input = React.forwardRef(function Input(
           <button
             type="button"
             onClick={togglePasswordVisibility}
-            className={` w-[12%] px-3 flex justify-center peer-hover:opacity-70 items-center border-[1px] border-gray-300 border-l-0  text-lg ${
-              !passwordVisible ? "text-gray-800" : "text-[#eb2828]"
+            className={` w-[12%] px-3 flex justify-center peer-hover:opacity-70 items-center border-[1px] border-gray-300 dark:border-[#2b2b2e] border-l-0  text-lg ${
+              !passwordVisible ? "text-gray-800 dark:text-white" : "text-[#eb2828]"
             }`}
           >
             {passwordVisible ? <FaEyeSlash /> : <FaEye />}

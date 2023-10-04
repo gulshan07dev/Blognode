@@ -1,4 +1,5 @@
 import { Container, Logo, LogoutButton } from "../index";
+import ThemeChangerBtn from "./themeChangerBtn";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -40,47 +41,60 @@ export default function Header() {
   ];
 
   return (
-    <header className="py-3.5 shadow-sm border-b-[1px] border-b-gray-100 bg-white sticky top-0 z-50">
-      <Container>
-        <nav className="flex justify-between items-center">
-          <Logo className="max-md:text-base text-3xl" />
+    <header className="py-3.5 md:px-10 px-3 shadow-sm border-b-[1px] border-b-gray-100 dark:border-b-[#2b2b2e] bg-white dark:bg-[#131315] sticky top-0 z-50 w-screen">
+      <nav className="flex justify-between items-center w-full">
+        <Logo className="max-md:text-base text-3xl" />
 
-          <div
-            className={`
+        <div
+          className={`
               ${
                 authStatus
                   ? "max-md:fixed max-md:bottom-0 max-md:w-screen max-md:flex max-md:justify-center max-md:p-3"
                   : ""
               } bg-none
             `}
+        >
+          <ul
+            className={`flex h-fit gap-[2px] overflow-hidden shadow-sm p-0 border-[1px] dark:border-[2px] border-gray-300 dark:border-[#2b2b2e] rounded-full ${
+              authStatus
+                ? "max-md:bg-[#ffffffbb] dark:max-md:bg-[#131315be] max-md:backdrop-blur-sm"
+                : ""
+            } bg-gray-300 dark:bg-[#2b2b2e]`}
           >
-            <ul
-              className={`flex h-fit gap-0 overflow-hidden shadow-sm border-[1px] border-gray-300 rounded-full ${
-                authStatus
-                  ? "max-md:bg-[#ffffffbb] max-md:backdrop-blur-sm"
-                  : ""
-              } bg-white`}
-            >
-              {navItems.map((item) =>
-                item.active ? (
-                  <li key={item.name}>
-                    <Link to={`${item.slug}`}>
-                      <button
-                        className={`flex items-center gap-2 md:px-5 ${
-                          authStatus ? "px-6" : "px-3"
-                        } md:py-2 py-2 text-center font-nunito-sans md:text-lg font-[500] duration-200 hover:bg-gray-50 hover:shadow-sm border-x-[1px] border-gray-200`}
-                      >
-                        {item.icon ? <item.icon /> : null} {item.name}
-                      </button>
-                    </Link>
-                  </li>
-                ) : null
-              )}
-            </ul>
-          </div>
+            {navItems.map((item) =>
+              item.active ? (
+                <li key={item.name}>
+                  <Link to={`${item.slug}`}>
+                    <button
+                      className={`flex items-center gap-2 md:px-5 ${
+                        authStatus ? "px-6" : "px-3"
+                      } md:py-2 py-2 text-center text-gray-900 bg-white dark:bg-[#18181b] dark:text-white font-nunito-sans md:text-lg font-[500] duration-200 hover:bg-gray-50 hover:shadow-sm  `}
+                    >
+                      {item.icon ? <item.icon /> : null} {item.name}
+                    </button>
+                  </Link>
+                </li>
+              ) : null
+            )}
+          </ul>
+        </div>
+        <div
+          className={`${
+            authStatus
+              ? "flex md:gap-12 gap-3"
+              : "max-md:absolute max-md:right-[-100%]"
+          } `}
+        >
+          {
+            <ThemeChangerBtn
+              className={`${
+                authStatus ? "" : "max-md:fixed max-md:bottom-2 max-md:right-1"
+              }`}
+            />
+          }
           {authStatus && <LogoutButton />}
-        </nav>
-      </Container>
+        </div>
+      </nav>
     </header>
   );
 }

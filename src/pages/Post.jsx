@@ -40,7 +40,7 @@ export default function Post() {
         <img
           src={bucketService.getFilePreview(post.featuredImage)}
           alt={post.title}
-          className="rounded-xl w-2/3"
+          className="rounded-xl w-2/3 dark:border-[1px] dark:border-[#2b2b2e]"
         />
 
         {isAuthor && (
@@ -49,23 +49,25 @@ export default function Post() {
               onClick={() => setShowOptionsModal(!showOptionsModal)}
               className="focus:outline-none rotate-90"
             >
-              <span className="text-xl text-gray-700">
+              <span className="text-xl text-gray-700 dark:text-white">
                 &#8226;&#8226;&#8226;
               </span>
             </button>
           </div>
         )}
         <div className="w-full mb-6">
-          <h1 className="md:text-5xl text-3xl font-bold text-gray-800 text-center font-nunito-sans">
+          <h1 className="md:text-5xl text-3xl font-bold text-gray-800 dark:text-white text-center font-nunito-sans">
             {post.title}
           </h1>
         </div>
-        <div className="browser-css text-left post-content">{parse(post.content)}</div>
+        <div className="browser-css text-left post-content">
+          {parse(post.content)}
+        </div>
 
         {/* Modal for edit and delete options */}
         {showOptionsModal && isAuthor && (
           <Modal>
-            <div className="p-7">
+            <div className="p-4">
               <Link to={`/edit-post/${post.$id}`}>
                 <Button bgColor="bg-green-500" className="mb-2 w-full">
                   Edit

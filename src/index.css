@@ -12,7 +12,7 @@
 }
 
 body {
-    min-height: 100vh;
+    width: 100vw;
     overflow-x: hidden;
     font-family: "poppins", sans-serif;
 }
@@ -57,9 +57,17 @@ body {
     color: #000000d7;
 }
 
+body.dark .post-content h1, body.dark .post-content h2, body.dark .post-content h3 {
+    color: #d3d3d3;
+}
+
 .post-content p {
     font-family: "Nunito Sans", sans-serif;
     font-size: 1.4rem;
     font-weight: 500;
     color: #31383b;
+}
+
+body.dark .post-content p {
+    color: #b9b9b9;
 }
