@@ -41,34 +41,32 @@ export default function Header() {
   ];
 
   return (
-    <header className="py-3.5 md:px-10 px-3 shadow-sm border-b-[1px] border-b-gray-100 dark:border-b-[#2b2b2e] bg-white dark:bg-[#131315] sticky top-0 z-50 w-screen">
-      <nav className="flex justify-between items-center w-full">
+    <header className="md:py-3.5 py-2.5 md:px-10 px-2 overflow-x-hidden shadow-sm border-b-[1px] border-b-gray-100 dark:border-b-[#2b2b2e] bg-white dark:bg-[#131315] sticky top-0 z-50 w-screen">
+      <nav className="flex justify-between items-center w-full overflow-hidden">
         <Logo className="max-md:text-base text-3xl" />
 
         <div
           className={`
               ${
                 authStatus
-                  ? "max-md:fixed max-md:bottom-0 max-md:w-screen max-md:flex max-md:justify-center max-md:p-3"
+                  ? "max-md:fixed max-md:bottom-0 max-md:w-full max-md:flex max-md:justify-center max-md:p-3"
                   : ""
               } bg-none
             `}
         >
           <ul
-            className={`flex h-fit gap-[2px] overflow-hidden shadow-sm p-0 border-[1px] dark:border-[2px] border-gray-300 dark:border-[#2b2b2e] rounded-full ${
-              authStatus
-                ? "max-md:bg-[#ffffffbb] dark:max-md:bg-[#131315be] max-md:backdrop-blur-sm"
-                : ""
-            } bg-gray-300 dark:bg-[#2b2b2e]`}
+            className={`flex h-fit gap-[2px] overflow-hidden shadow-sm border-[1px] dark:border-[2px] border-gray-300 dark:border-[#2b2b2e] rounded-full  bg-gray-300 dark:bg-[#2b2b2e]`}
           >
             {navItems.map((item) =>
               item.active ? (
                 <li key={item.name}>
                   <Link to={`${item.slug}`}>
                     <button
-                      className={`flex items-center gap-2 md:px-5 ${
-                        authStatus ? "px-6" : "px-3"
-                      } md:py-2 py-2 text-center text-gray-900 bg-white dark:bg-[#18181b] dark:text-white font-nunito-sans md:text-lg font-[500] duration-200 hover:bg-gray-50 hover:shadow-sm  `}
+                      className={`flex items-center gap-2 ${
+                        authStatus
+                          ? "md:px-3.5 px-3 max-sm:px-2.5 md:py-1.5 py-2 max-md:bg-[#ffffffbb] dark:max-md:bg-[#131315cb] max-md:backdrop-blur-sm"
+                          : "md:px-3 px-2.5 py-1.5"
+                      } text-center text-gray-900 bg-white dark:bg-[#18181b] dark:text-white font-nunito-sans md:text-lg text-base font-[500] duration-200 hover:bg-gray-50 hover:shadow-sm  `}
                     >
                       {item.icon ? <item.icon /> : null} {item.name}
                     </button>

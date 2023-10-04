@@ -5,16 +5,22 @@ import { useSelector } from "react-redux";
 export default function ThemeChangerBtn({ className }) {
   const authStatus = useSelector((state) => state.auth.authStatus);
   const [isDarkMode, setIsDarkMode] = useState(
-    localStorage.getItem("darkMode") || authStatus
+    JSON.parse(localStorage.getItem("darkMode")) || false
   );
 
   useEffect(() => {
-    document.body.classList.toggle("dark", isDarkMode);
-    localStorage.setItem("darkMode", isDarkMode);
+    const bodyElement = document.body;
+    bodyElement.classList.remove("dark", "light");
+
+    isDarkMode
+      ? bodyElement.classList.add("dark")
+      : bodyElement.classList.add("light");
+
+    localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
   }, [isDarkMode]);
 
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
+    setIsDarkMode((prev) => !prev);
   };
 
   return (
