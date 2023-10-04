@@ -28,9 +28,9 @@ export default function MyPosts() {
   return loading ? (
     <Loader />
   ) : (
-    <section className="grid md:grid-cols-3 grid-cols-1 gap-7 max-md:gap-14 md:py-12 pt-10 pb-10 px-7 max-md:px-4 max-md:place-items-center w-full">
+    <section className="w-full md:py-12 pt-10 pb-10 px-7 max-md:px-4 ">
       {posts.length === 0 ? (
-        <div className="w-full px-3 pt-20 flex justify-center items-center">
+        <div className="w-screen px-3 pt-20 flex justify-center items-center">
           {error.message === "Network request failed" ? (
             <Message text={`${error.message} | ${error?.status || ""}`} />
           ) : (
@@ -38,7 +38,11 @@ export default function MyPosts() {
           )}
         </div>
       ) : (
-        posts.map((post) => <PostCard post={post} key={post.$id} />)
+        <div className="grid md:grid-cols-3 grid-cols-1 md:gap-4 gap-12 max-md:place-items-center">
+          {posts.map((post) => (
+            <PostCard post={post} key={post.$id} className="w-[400px]" />
+          ))}
+        </div>
       )}
     </section>
   );

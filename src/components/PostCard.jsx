@@ -5,15 +5,17 @@ import postService from "../appwrite/posts";
 import { htmlToText } from "html-to-text";
 import { format } from "date-fns";
 
-export default function PostCard({ post }) {
+export default function PostCard({ post, className }) {
   return (
-    <div className="max-w-md max-md:w-full rounded overflow-hidden shadow-lg bg-white dark:bg-[#18181b] dark:border-[1px] border-[#2b2b2e]">
+    <div className={`w-[450px] max-md:w-full rounded overflow-hidden flex flex-col gap-3 justify-between shadow-sm bg-white dark:bg-[#18181b] border-[1px] border-gray-300 dark:border-[#2b2b2e] ${className}`}>
       <Link to={`/post/${post.$id}`}>
-        <img
-          className="w-full"
-          src={bucketService.getFilePreview(post.featuredImage)}
-          alt={post.title}
-        />
+        <div className="w-full h-[235px] overflow-hidden">
+          <img
+            className="w-full"
+            src={bucketService.getFilePreview(post.featuredImage)}
+            alt={post.title}
+          />
+        </div>
         <div className="px-6 py-4">
           <h1 className="font-bold text-xl dark:text-white mb-2">
             {post.title}
