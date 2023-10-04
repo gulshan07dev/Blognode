@@ -1,6 +1,6 @@
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
-import Loader from "./loader";
+import Loader from "./Loader";
 import Container from "./container/Container";
 import PostCard from "./PostCard"
 import Logo from "./Logo";
