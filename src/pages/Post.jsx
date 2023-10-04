@@ -35,22 +35,21 @@ export default function Post() {
     } else navigate("/");
   }, [slug, navigate]);
 
- const deletePost = () => {
-   Promise.all([
-     postService.deletePost(post.$id),
-     bucketService.deleteFile(post.featuredImage),
-   ])
-     .then(([postStatus, fileStatus]) => {
-       if (postStatus && fileStatus) {
-        toast.success("Post deleted")
-         navigate("/");
-       }
-     })
-     .catch((error) => {
-       toast.error(error.message);
-     });
- };
-
+  const deletePost = () => {
+    Promise.all([
+      postService.deletePost(post.$id),
+      bucketService.deleteFile(post.featuredImage),
+    ])
+      .then(([postStatus, fileStatus]) => {
+        if (postStatus && fileStatus) {
+          toast.success("Post deleted");
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
 
   return loading ? (
     <Loader />
@@ -61,15 +60,15 @@ export default function Post() {
           <Message text={error.message} />
         </div>
       ) : (
-        <div className="md:w-2/3 w-full flex flex-col items-center md:gap-7 gap-6 relative">
+        <div className="md:w-2/3 w-full pt-3 flex flex-col items-center md:gap-7 gap-6 relative">
           <img
             src={bucketService.getFilePreview(post.featuredImage)}
             alt={post.title}
-            className="rounded-xl w-2/3 dark:border-[1px] dark:border-[#2b2b2e]"
+            className="rounded-xl md:w-2/3 w-full dark:border-[1px] dark:border-[#2b2b2e]"
           />
 
           {isAuthor && (
-            <div className="absolute top-4 right-4">
+            <div className="absolute top-6 right-3 h-12 w-12 flex justify-center items-center rounded-full bg-gray-200 shadow-sm dark:bg-[#262627]">
               <button
                 onClick={() => setShowOptionsModal(!showOptionsModal)}
                 className="focus:outline-none rotate-90"

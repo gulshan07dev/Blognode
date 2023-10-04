@@ -64,7 +64,7 @@ export default function Header() {
                     <button
                       className={`flex items-center gap-2 ${
                         authStatus
-                          ? "md:px-3.5 px-3 max-sm:px-2.5 md:py-1.5 py-2 max-md:bg-[#ffffffbb] dark:max-md:bg-[#131315cb] max-md:backdrop-blur-sm"
+                          ? "md:px-3.5 px-3 max-sm:px-2.5 md:py-1.5 py-2 max-md:bg-[#fffffff1] dark:max-md:bg-[#131315c4] max-md:backdrop-blur-md"
                           : "md:px-3 px-2.5 py-1.5"
                       } text-center text-gray-900 bg-white dark:bg-[#18181b] dark:text-white font-nunito-sans md:text-lg text-base font-[500] duration-200 hover:bg-gray-50 hover:shadow-sm  `}
                     >
