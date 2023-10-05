@@ -15,6 +15,7 @@ import RTE from "./RTE";
 import PostForm from "./post-form/PostForm";
 import Modal from "./Modal/Modal";
 import Message from "./Message";
+import ScrollToTop from "./ScrollToTop";
 
 export {
     Header,
@@ -33,5 +34,6 @@ export {
     RTE,
     PostForm,
     Modal,
-    Message
+    Message,
+    ScrollToTop
 }
