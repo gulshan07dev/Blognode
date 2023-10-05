@@ -1,13 +1,11 @@
 import { Container, Logo, LogoutButton } from "../index";
 import ThemeChangerBtn from "./themeChangerBtn";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { FaHome, FaListUl, FaPlus } from "react-icons/fa";
 
 export default function Header() {
   const authStatus = useSelector((state) => state.auth.status);
-  const navigate = useNavigate();
 
   const navItems = [
     {
@@ -60,17 +58,23 @@ export default function Header() {
             {navItems.map((item) =>
               item.active ? (
                 <li key={item.name}>
-                  <Link to={`${item.slug}`}>
-                    <button
-                      className={`flex items-center gap-2 ${
-                        authStatus
-                          ? "md:px-3.5 px-3 max-sm:px-2.5 md:py-1.5 py-2 max-md:bg-[#fffffff1] dark:max-md:bg-[#131315c4] max-md:backdrop-blur-md"
-                          : "md:px-3 px-2.5 py-1.5"
-                      } text-center text-gray-900 bg-white dark:bg-[#18181b] dark:text-white font-nunito-sans md:text-lg text-base font-[500] duration-200 hover:bg-gray-50 hover:shadow-sm  `}
-                    >
-                      {item.icon ? <item.icon /> : null} {item.name}
-                    </button>
-                  </Link>
+                  <NavLink to={`${item.slug}`}>
+                    {({ isActive, isPending }) => (
+                      <button
+                        className={`flex items-center gap-2 ${
+                          authStatus
+                            ? "md:px-3.5 px-3 max-sm:px-2.5 md:py-1.5 py-2"
+                            : "md:px-3 px-2.5 py-1.5"
+                        }  text-center ${
+                          isActive
+                            ? "bg-[#f4f4ff] dark:bg-[#2e2e31] text-[#4437f0] dark:text-purple-200"
+                            : "bg-white dark:bg-[#18181b]  text-gray-900 dark:text-white"
+                        } font-nunito-sans md:text-lg text-base font-[500] duration-200 hover:bg-gray-50 hover:shadow-sm  `}
+                      >
+                        {item.icon ? <item.icon /> : null} {item.name}
+                      </button>
+                    )}
+                  </NavLink>
                 </li>
               ) : null
             )}

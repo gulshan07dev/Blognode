@@ -2,12 +2,18 @@ import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, Select, RTE } from "../../components";
 import bucketService from "../../appwrite/bucket";
-import postService from "../../appwrite/posts";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
+import {
+  addPost,
+  editPost,
+  getAllPosts,
+  getMyPosts,
+} from "../../store/postSlice";
 
 export default function PostForm({ post }) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [previewImg, setPreviewImg] = useState(null);
@@ -29,41 +35,21 @@ export default function PostForm({ post }) {
     }
     setLoading(true);
 
-    try {
-      if (post) {
-        const file = data.image[0]
-          ? await bucketService.uploadFile(data.image[0])
-          : null;
-
-        if (file) {
-          bucketService.deleteFile(post.featuredImage);
-        }
-        const dbPost = await postService.updatePost(post.$id, {
-          ...data,
-          featuredImage: file ? file.$id : undefined,
-        });
-        if (dbPost) {
-          toast.success("Post updated!");
-          navigate(`/post/${dbPost.$id}`);
-        }
-      } else {
-        const file = data.image[0]
-          ? await bucketService.uploadFile(data.image[0])
-          : null;
-        if (file) {
-          const dbPost = await postService.createPost({
-            ...data,
-            featuredImage: file?.$id,
-            userId: userData.$id,
-          });
-          if (dbPost) {
-            toast.success("Post created!");
-            navigate(`/post/${dbPost.$id}`);
-          }
-        }
+    if (post) {
+      const res = await dispatch(editPost({ data, post }));
+      console.log(res);
+      if (res.meta.requestStatus === "fulfilled") {
+        navigate(`/post/${res.payload.$id}`);
+        await dispatch(getAllPosts());
+        await dispatch(getMyPosts());
       }
-    } catch (error) {
-      toast.error(error.message);
+    } else {
+      const res = await dispatch(addPost({ data, userId: userData.$id }));
+      if (res.meta.requestStatus === "fulfilled") {
+        navigate(`/post/${res.payload.$id}`);
+        await dispatch(getAllPosts());
+        await dispatch(getMyPosts());
+      }
     }
 
     setLoading(false);

@@ -3,17 +3,18 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import postService from "../appwrite/posts";
 import { Button, Container, Loader, Message, Modal } from "../components";
 import parse from "html-react-parser";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getPost, deletePost, getAllPosts, getMyPosts } from "../store/postSlice";
 import bucketService from "../appwrite/bucket";
-import toast from "react-hot-toast";
 
 export default function Post() {
-  const [post, setPost] = useState(null);
   const { slug } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const { post, loading, error } = useSelector(
+    (state) => state.post.uniquePost
+  );
   const userData = useSelector((state) => state.auth.userData);
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
@@ -21,34 +22,17 @@ export default function Post() {
 
   useEffect(() => {
     if (slug) {
-      postService
-        .getPost(slug)
-        .then((post) => {
-          if (post) setPost(post);
-        })
-        .catch((error) => {
-          setError(error);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      dispatch(getPost(slug));
     } else navigate("/");
   }, [slug, navigate]);
 
-  const deletePost = () => {
-    Promise.all([
-      postService.deletePost(post.$id),
-      bucketService.deleteFile(post.featuredImage),
-    ])
-      .then(([postStatus, fileStatus]) => {
-        if (postStatus && fileStatus) {
-          toast.success("Post deleted");
-          navigate("/");
-        }
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
+  const handleDeletePost = async () => {
+    const res = await dispatch(deletePost(post)); 
+    if(res.meta.requestStatus === "fulfilled") {
+      navigate("/")
+      await getAllPosts();
+      await getMyPosts();
+    }
   };
 
   return loading ? (
@@ -62,8 +46,8 @@ export default function Post() {
       ) : (
         <div className="md:w-2/3 w-full pt-3 flex flex-col items-center md:gap-7 gap-6 relative">
           <img
-            src={bucketService.getFilePreview(post.featuredImage)}
-            alt={post.title}
+            src={bucketService.getFilePreview(post?.featuredImage)}
+            alt={post?.title}
             className="rounded-xl md:w-2/3 w-full dark:border-[1px] dark:border-[#2b2b2e]"
           />
 
@@ -81,11 +65,11 @@ export default function Post() {
           )}
           <div className="w-full mb-6">
             <h1 className="md:text-5xl text-3xl font-bold text-gray-800 dark:text-white text-center font-nunito-sans">
-              {post.title}
+              {post?.title}
             </h1>
           </div>
           <div className="browser-css self-start text-left post-content">
-            {parse(post.content)}
+            {parse(post?.content)}
           </div>
 
           {/* Modal for edit and delete options */}
@@ -101,7 +85,7 @@ export default function Post() {
                   bgColor="bg-red-500"
                   onClick={() => {
                     setShowOptionsModal(false);
-                    deletePost();
+                    handleDeletePost();
                   }}
                   className="w-full"
                 >

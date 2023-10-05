@@ -9,9 +9,9 @@ export default function PostCard({ post, className }) {
   return (
     <div className={`w-[450px] max-md:w-full rounded overflow-hidden flex flex-col gap-3 justify-between shadow-sm bg-white dark:bg-[#18181b] border-[1px] border-gray-300 dark:border-[#2b2b2e] ${className}`}>
       <Link to={`/post/${post.$id}`}>
-        <div className="w-full md:h-[235px] overflow-hidden">
+        <div className="w-full md:h-[230px] h-auto overflow-hidden">
           <img
-            className="w-full"
+            className="w-full md:h-full"
             src={bucketService.getFilePreview(post.featuredImage)}
             alt={post.title}
           />
