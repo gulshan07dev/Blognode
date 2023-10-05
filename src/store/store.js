@@ -6,5 +6,6 @@ export const store = configureStore({
     reducer: {
         auth: authSlice,
         post: postSlice
-    }
+    },
+    devTools: import.meta.env.VITE_ENVIRONMENT === "development"
 })
