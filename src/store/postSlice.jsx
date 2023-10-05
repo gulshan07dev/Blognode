@@ -52,28 +52,31 @@ export const deletePost = createAsyncThunk(
 );
 
 // add post
-export const addPost = createAsyncThunk("/posts/post/add", async ({data, userId}) => {
-  try {
-    const file = data.image[0]
-      ? await bucketService.uploadFile(data.image[0])
-      : null;
+export const addPost = createAsyncThunk(
+  "/posts/post/add",
+  async ({ data, userId }) => {
+    try {
+      const file = data.image[0]
+        ? await bucketService.uploadFile(data.image[0])
+        : null;
 
-    if (file) {
-      const dbPost = await postService.createPost({
-        ...data,
-        featuredImage: file?.$id,
-        userId,
-      });
-      if (dbPost) {
-        toast.success("Post created!");
-        return dbPost;
+      if (file) {
+        const dbPost = await postService.createPost({
+          ...data,
+          featuredImage: file?.$id,
+          userId,
+        });
+        if (dbPost) {
+          toast.success("Post created!");
+          return dbPost;
+        }
       }
+    } catch (error) {
+      toast.error(error.message);
+      throw error;
     }
-  } catch (error) {
-    toast.error(error.message);
-    throw error;
   }
-});
+);
 
 // edit post
 export const editPost = createAsyncThunk(
@@ -125,7 +128,13 @@ export const getMyPosts = createAsyncThunk("/my-posts/get", async (userId) => {
 const postSlice = createSlice({
   name: "post",
   initialState,
-  reducers: {},
+  reducers: {
+    resetPost: (state, action) => {
+      state.uniquePost.post = {};
+      state.allPosts.posts = [];
+      state.myPosts.posts = [];
+    },
+  },
   extraReducers: (builder) => {
     // for get post by slug
     builder.addCase(getPost.fulfilled, (state, action) => {
@@ -143,6 +152,7 @@ const postSlice = createSlice({
     builder.addCase(getAllPosts.fulfilled, (state, action) => {
       state.allPosts.posts = action.payload.documents;
       state.allPosts.loading = false;
+      state.allPosts.error = null;
     });
 
     builder.addCase(getAllPosts.rejected, (state, action) => {
@@ -165,4 +175,4 @@ const postSlice = createSlice({
 });
 
 export default postSlice.reducer;
-export const { addAllPosts, addMyPosts } = postSlice.actions;
+export const { resetPost } = postSlice.actions;

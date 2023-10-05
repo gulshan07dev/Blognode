@@ -34,7 +34,7 @@ const Input = React.forwardRef(function Input(
         <input
           type={inputType}
           className={`px-3 py-2.5 rounded-sm border-[1px] border-gray-300 dark:border-[#2b2b2e] bg-white dark:bg-[#18181b]  backdrop-blur-md text-gray-700 dark:text-slate-300 font-nunito-sans text-base font-[500] outline-none focus:bg-gray-50 focus:border-blue-500 duration-200 w-full ${
-            type == "password" ? "w-[88%]" : "w-full"
+            type == "password" ? "md:w-[88%] w-[85%]" : "w-full"
           } ${className}`}
           ref={ref}
           {...props}
@@ -44,8 +44,10 @@ const Input = React.forwardRef(function Input(
           <button
             type="button"
             onClick={togglePasswordVisibility}
-            className={` w-[12%] px-3 flex justify-center peer-hover:opacity-70 items-center border-[1px] border-gray-300 dark:border-[#2b2b2e] border-l-0  text-lg ${
-              !passwordVisible ? "text-gray-800 dark:text-white" : "text-[#eb2828]"
+            className={` md:w-[12%] w-[15%] px-3 flex justify-center peer-hover:opacity-70 items-center border-[1px] border-gray-300 dark:border-[#2b2b2e] border-l-0  text-lg ${
+              !passwordVisible
+                ? "text-gray-800 dark:text-white"
+                : "text-[#eb2828]"
             }`}
           >
             {passwordVisible ? <FaEyeSlash /> : <FaEye />}

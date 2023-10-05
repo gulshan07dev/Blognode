@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import postService from "../appwrite/posts";
 import { Loader, PostCard, Container, Message } from "../components";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addAllPosts, getAllPosts } from "../store/postSlice";
-import { Query } from "appwrite";
+import { getAllPosts } from "../store/postSlice";
 
 export default function Home() {
   const dispatch = useDispatch();
+  const authStatus = useSelector((state) => state.auth.status);
   const { posts, error, loading } = useSelector((state) => state.post.allPosts);
 
   useEffect(() => {
@@ -22,10 +21,8 @@ export default function Home() {
     <section className="flex justify-center md:py-12 pt-10 pb-10 max-md:px-4">
       {error && (
         <div className="w-full px-3 pt-20 flex flex-col gap-5 justify-center items-center">
-          <Message
-            text={`${error.message}`}
-          />
-          {error.type === "user_unauthorized" && (
+          <Message text={`${error.message}`} />
+          {!authStatus && (
             <Link to="/login" className="p-2">
               <h1 className="text-2xl font-bold text-gray-800 hover:text-gray-500 dark:text-slate-50">
                 Please Login to view post !
