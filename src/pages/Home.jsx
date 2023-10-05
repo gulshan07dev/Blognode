@@ -13,7 +13,7 @@ export default function Home() {
     if (!posts.length) {
       dispatch(getAllPosts());
     }
-  }, [dispatch]);
+  }, [dispatch, posts]);
 
   return loading ? (
     <Loader />
