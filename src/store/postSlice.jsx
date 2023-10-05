@@ -5,11 +5,6 @@ import { Query } from "appwrite";
 import toast from "react-hot-toast";
 
 const initialState = {
-  uniquePost: {
-    post: {},
-    error: null,
-    loading: true,
-  },
   allPosts: {
     posts: [],
     error: null,
@@ -22,20 +17,11 @@ const initialState = {
   },
 };
 
-// get post by slug (unique)
-export const getPost = createAsyncThunk("/posts/post/get", async (slug) => {
-  try {
-    const res = await postService.getPost(slug);
-    return res;
-  } catch (error) {
-    throw error;
-  }
-});
-
 // delete post
 export const deletePost = createAsyncThunk(
   "/posts/post/delete",
   async (post) => {
+    const loadingMessage = toast.loading("deleting...");
     try {
       const [postStatus, fileStatus] = await Promise.all([
         postService.deletePost(post.$id),
@@ -43,10 +29,10 @@ export const deletePost = createAsyncThunk(
       ]);
 
       if (postStatus && fileStatus) {
-        toast.success("Post deleted");
+        toast.success("Post deleted", { id: loadingMessage });
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message, { id: loadingMessage });
     }
   }
 );
@@ -117,7 +103,7 @@ export const getAllPosts = createAsyncThunk("/posts/get", async () => {
 
 // get my posts
 export const getMyPosts = createAsyncThunk("/my-posts/get", async (userId) => {
-  try {
+  try { 
     const res = await postService.getPosts([Query.equal("userId", userId)]);
     return res;
   } catch (error) {
@@ -130,24 +116,11 @@ const postSlice = createSlice({
   initialState,
   reducers: {
     resetPost: (state, action) => {
-      state.uniquePost.post = {};
       state.allPosts.posts = [];
       state.myPosts.posts = [];
     },
   },
   extraReducers: (builder) => {
-    // for get post by slug
-    builder.addCase(getPost.fulfilled, (state, action) => {
-      state.uniquePost.post = action.payload;
-      state.uniquePost.loading = false;
-    });
-
-    builder.addCase(getPost.rejected, (state, action) => {
-      console.log(action);
-      state.uniquePost.error = action.error;
-      state.uniquePost.loading = false;
-    });
-
     // for get All posts
     builder.addCase(getAllPosts.fulfilled, (state, action) => {
       state.allPosts.posts = action.payload.documents;
@@ -165,6 +138,7 @@ const postSlice = createSlice({
     builder.addCase(getMyPosts.fulfilled, (state, action) => {
       state.myPosts.posts = action.payload.documents;
       state.myPosts.loading = false;
+      state.myPosts.error = null;
     });
 
     builder.addCase(getMyPosts.rejected, (state, action) => {

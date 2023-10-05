@@ -41,7 +41,7 @@ export default function PostForm({ post }) {
       if (res.meta.requestStatus === "fulfilled") {
         navigate(`/post/${res.payload.$id}`);
         await dispatch(getAllPosts());
-        await dispatch(getMyPosts());
+        await dispatch(getMyPosts(userData.$id));
       }
     } else {
       const res = await dispatch(addPost({ data, userId: userData.$id }));

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getMyPosts } from "../store/postSlice";
-import { Loader, PostCard, Message, Container } from "../components";
+import { Loader, PostCard, Message } from "../components";
 
 export default function MyPosts() {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export default function MyPosts() {
     if (!posts.length) {
       dispatch(getMyPosts(userData.$id));
     }
-  }, [dispatch, posts]);
+  }, []);
 
   return loading ? (
     <Loader />
@@ -29,7 +29,7 @@ export default function MyPosts() {
       ) : (
         <div className="grid md:grid-cols-3 grid-cols-1 md:gap-5 gap-12 max-md:place-items-center">
           {posts?.map((post) => (
-            <PostCard post={post} key={post.$id} className="w-[390px]" />
+            <PostCard post={post} key={post.$id} className="w-auto" />
           ))}
         </div>
       )}

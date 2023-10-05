@@ -1,20 +1,25 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import postService from "../appwrite/posts";
-import { Button, Container, Loader, Message, Modal } from "../components";
+import { Button, Loader, Message, Modal } from "../components";
 import parse from "html-react-parser";
 import { useDispatch, useSelector } from "react-redux";
-import { getPost, deletePost, getAllPosts, getMyPosts } from "../store/postSlice";
+import {
+  deletePost,
+  getAllPosts,
+  getMyPosts,
+  resetPost,
+} from "../store/postSlice";
 import bucketService from "../appwrite/bucket";
+import postService from "../appwrite/posts";
 
 export default function Post() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { post, loading, error } = useSelector(
-    (state) => state.post.uniquePost
-  );
+  const [post, setPost] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const userData = useSelector((state) => state.auth.userData);
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
@@ -22,16 +27,24 @@ export default function Post() {
 
   useEffect(() => {
     if (slug) {
-      dispatch(getPost(slug));
+      (async () => {
+        try {
+          const res = await postService.getPost(slug);
+          setPost(res);
+        } catch (error) {
+          setError(error);
+        } finally {
+          setLoading(false);
+        }
+      })();
     } else navigate("/");
   }, [slug, navigate]);
 
   const handleDeletePost = async () => {
-    const res = await dispatch(deletePost(post)); 
-    if(res.meta.requestStatus === "fulfilled") {
-      navigate("/")
-      await getAllPosts();
-      await getMyPosts();
+    const res = await dispatch(deletePost(post));
+    if (res.meta.requestStatus === "fulfilled") {
+      navigate("/my-posts");
+      dispatch(resetPost());
     }
   };
 
