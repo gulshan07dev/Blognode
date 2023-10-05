@@ -2,7 +2,7 @@ import { useState } from "react";
 import authService from "../appwrite/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../store/authSlice";
-import { Button, Input, Logo } from "../components";
+import { Button, Input } from "../components";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
@@ -24,6 +24,7 @@ export default function Signup() {
         const userData = await authService.getCurrentUser();
         if (userData) {
           toast.success("Signup Successful!");
+          dispatch(login({ userData }));
           navigate("/");
         }
       }
